@@ -19,14 +19,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private lateinit var bottomSheet: bottomsheet_fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        bottomSheet = bottomsheet_fragment()
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -45,7 +43,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        val bottomsheetFragment = bottomsheet_fragment()
+
         mMap = googleMap
 
 
@@ -96,8 +94,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback
 
         mMap!!.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
             override fun onMarkerClick(marker: Marker): Boolean {
+                val bottomsheetFragment = bottomsheet_fragment(marker.getTitle())
                 bottomsheetFragment.show(supportFragmentManager, "BottomSheetDialog")
-                bottomsheetFragment.updateText(marker.getTitle())
 
                 return false
             }
